@@ -1,2 +1,2 @@
 # user-nodejs
-Simple blog app using nodeJs and express
+Simple user app using nodeJs and express
