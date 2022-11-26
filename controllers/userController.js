@@ -43,20 +43,37 @@ exports.postUser = (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
-  res.status(200).json({
-    msg: 'detta är uppdatera',
-    status: 'success'
-  })
+  let id = req.params.id
+  let userName = req.body.userName
+  let email = req.body.email
+
+  if (userName && email) {
+    let index = users.findIndex((upd) => upd.id == id)
+
+    users[index] = {
+      ...users[index],
+      userName,
+      email
+    }
+
+    res.status(200).json({
+      msg: 'User updated',
+      status: 'success',
+      data: users
+    })
+  } else {
+    res.status(400).json({
+      msg: 'Validation error',
+      status: 'Failed'
+    })
+  }
 }
 
 // Renove a user
 exports.removeUser = (req, res) => {
   let id = req.params.id
-
-  console.log(id)
   let newUser = users.filter((rem) => rem.id != id)
 
-  // Adding the new array to the user array that we had before
   users = newUser
 
   res.status(200).json({
